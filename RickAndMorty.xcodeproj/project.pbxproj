@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4906B3772AAB68D9005E6DD4 /* TransportForRickAndMorty in Frameworks */ = {isa = PBXBuildFile; productRef = 4906B3762AAB68D9005E6DD4 /* TransportForRickAndMorty */; };
 		491ECE562AB9D34A000E2313 /* CashDataEpisodesSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491ECE552AB9D34A000E2313 /* CashDataEpisodesSingleton.swift */; };
+		491ECE812ABC64F2000E2313 /* RaMCharacterFooterForViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491ECE802ABC64F2000E2313 /* RaMCharacterFooterForViewController.swift */; };
+		491ECE862ABC763F000E2313 /* EpisodesCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 491ECE842ABC763E000E2313 /* EpisodesCoreDataModel.xcdatamodeld */; };
 		4927EEF92AB389F9000B11C2 /* NSLayoutConstraint+Mutators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4927EEF82AB389F9000B11C2 /* NSLayoutConstraint+Mutators.swift */; };
 		4941ED592AA5BC0700A9CC59 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4941ED582AA5BC0700A9CC59 /* AppDelegate.swift */; };
 		4941ED5B2AA5BC0700A9CC59 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4941ED5A2AA5BC0700A9CC59 /* SceneDelegate.swift */; };
@@ -30,6 +32,8 @@
 		48BA0DA5227C520919C8D3C7 /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4906B3742AAB6869005E6DD4 /* TransportRaM */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TransportRaM; path = ../../../Desktop/TransportRaM; sourceTree = "<group>"; };
 		491ECE552AB9D34A000E2313 /* CashDataEpisodesSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashDataEpisodesSingleton.swift; sourceTree = "<group>"; };
+		491ECE802ABC64F2000E2313 /* RaMCharacterFooterForViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaMCharacterFooterForViewController.swift; sourceTree = "<group>"; };
+		491ECE852ABC763F000E2313 /* EpisodesCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EpisodesCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		4927EEF82AB389F9000B11C2 /* NSLayoutConstraint+Mutators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+Mutators.swift"; sourceTree = "<group>"; };
 		4941ED552AA5BC0600A9CC59 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4941ED582AA5BC0700A9CC59 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,8 +92,10 @@
 				499B7B292AA75FF300ED9328 /* Extensions */,
 				4941ED582AA5BC0700A9CC59 /* AppDelegate.swift */,
 				491ECE552AB9D34A000E2313 /* CashDataEpisodesSingleton.swift */,
+				491ECE842ABC763E000E2313 /* EpisodesCoreDataModel.xcdatamodeld */,
 				4941ED5A2AA5BC0700A9CC59 /* SceneDelegate.swift */,
 				4941ED5C2AA5BC0700A9CC59 /* RaMCharactersViewController.swift */,
+				491ECE802ABC64F2000E2313 /* RaMCharacterFooterForViewController.swift */,
 				49C550852AA656060098329B /* RaMCharactersCell.swift */,
 				499B7B262AA74FBE00ED9328 /* RaMDescriptionViewController.swift */,
 				4941ED612AA5BC1900A9CC59 /* Assets.xcassets */,
@@ -260,6 +266,7 @@
 				499B7B722AA8BDC100ED9328 /* FiveTypeCell.swift in Sources */,
 				4941ED592AA5BC0700A9CC59 /* AppDelegate.swift in Sources */,
 				49C550862AA656060098329B /* RaMCharactersCell.swift in Sources */,
+				491ECE812ABC64F2000E2313 /* RaMCharacterFooterForViewController.swift in Sources */,
 				499B7B6C2AA8BD9500ED9328 /* ThirdTypeCell.swift in Sources */,
 				499B7B6F2AA8BDA800ED9328 /* FourthTypeCell.swift in Sources */,
 				4943F14B2AB0A30600C67C8F /* SecondTypeCellHeader.swift in Sources */,
@@ -267,6 +274,7 @@
 				491ECE562AB9D34A000E2313 /* CashDataEpisodesSingleton.swift in Sources */,
 				4927EEF92AB389F9000B11C2 /* NSLayoutConstraint+Mutators.swift in Sources */,
 				4941ED5B2AA5BC0700A9CC59 /* SceneDelegate.swift in Sources */,
+				491ECE862ABC763F000E2313 /* EpisodesCoreDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +475,19 @@
 			productName = TransportForRickAndMorty;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		491ECE842ABC763E000E2313 /* EpisodesCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				491ECE852ABC763F000E2313 /* EpisodesCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 491ECE852ABC763F000E2313 /* EpisodesCoreDataModel.xcdatamodel */;
+			path = EpisodesCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4941ED4D2AA5BC0600A9CC59 /* Project object */;
 }
