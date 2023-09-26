@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TransportForRickAndMorty
 import PINRemoteImage
-
+import DTOObjects
 
 class RaMCharactersCell: UICollectionViewCell {
     

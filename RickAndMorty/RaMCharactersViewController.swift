@@ -7,7 +7,7 @@
 
 import UIKit
 import TransportForRickAndMorty
-
+import DTOObjects
 
 class RaMCharactersViewController: UIViewController {
     

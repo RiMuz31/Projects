@@ -18,6 +18,8 @@
 		4941ED622AA5BC1900A9CC59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4941ED612AA5BC1900A9CC59 /* Assets.xcassets */; };
 		4941ED652AA5BC1900A9CC59 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4941ED632AA5BC1900A9CC59 /* LaunchScreen.storyboard */; };
 		4943F14B2AB0A30600C67C8F /* SecondTypeCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4943F14A2AB0A30600C67C8F /* SecondTypeCellHeader.swift */; };
+		4946AD9A2AC32072008E0D96 /* DTOObjects in Frameworks */ = {isa = PBXBuildFile; productRef = 4946AD992AC32072008E0D96 /* DTOObjects */; };
+		4948D9622ABE03EA000C2E59 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 4948D9612ABE03EA000C2E59 /* Storage */; };
 		499B7B272AA74FBE00ED9328 /* RaMDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B7B262AA74FBE00ED9328 /* RaMDescriptionViewController.swift */; };
 		499B7B2B2AA7601400ED9328 /* extensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B7B2A2AA7601400ED9328 /* extensionViewController.swift */; };
 		499B7B682AA8BD7400ED9328 /* FirstTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499B7B672AA8BD7400ED9328 /* FirstTypeCell.swift */; };
@@ -43,6 +45,8 @@
 		4941ED642AA5BC1900A9CC59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4941ED662AA5BC1900A9CC59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4943F14A2AB0A30600C67C8F /* SecondTypeCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTypeCellHeader.swift; sourceTree = "<group>"; };
+		4946AD972AC3206C008E0D96 /* DTOObjects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DTOObjects; path = ../DTOObjects; sourceTree = "<group>"; };
+		4948D95F2ABE03DD000C2E59 /* Storage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Storage; path = ../Storage; sourceTree = "<group>"; };
 		499B7B262AA74FBE00ED9328 /* RaMDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaMDescriptionViewController.swift; sourceTree = "<group>"; };
 		499B7B2A2AA7601400ED9328 /* extensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionViewController.swift; sourceTree = "<group>"; };
 		499B7B672AA8BD7400ED9328 /* FirstTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTypeCell.swift; sourceTree = "<group>"; };
@@ -59,8 +63,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4948D9622ABE03EA000C2E59 /* Storage in Frameworks */,
 				AD08ECCBA6CF12C8F66D78F1 /* Pods_RickAndMorty.framework in Frameworks */,
 				4906B3772AAB68D9005E6DD4 /* TransportForRickAndMorty in Frameworks */,
+				4946AD9A2AC32072008E0D96 /* DTOObjects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +114,8 @@
 		4941ED772AA5F7C300A9CC59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4946AD972AC3206C008E0D96 /* DTOObjects */,
+				4948D95F2ABE03DD000C2E59 /* Storage */,
 				4906B3742AAB6869005E6DD4 /* TransportRaM */,
 				48BA0DA5227C520919C8D3C7 /* Pods_RickAndMorty.framework */,
 			);
@@ -164,6 +172,8 @@
 			name = RickAndMorty;
 			packageProductDependencies = (
 				4906B3762AAB68D9005E6DD4 /* TransportForRickAndMorty */,
+				4948D9612ABE03EA000C2E59 /* Storage */,
+				4946AD992AC32072008E0D96 /* DTOObjects */,
 			);
 			productName = RickAndMorty;
 			productReference = 4941ED552AA5BC0600A9CC59 /* RickAndMorty.app */;
@@ -473,6 +483,14 @@
 		4906B3762AAB68D9005E6DD4 /* TransportForRickAndMorty */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TransportForRickAndMorty;
+		};
+		4946AD992AC32072008E0D96 /* DTOObjects */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DTOObjects;
+		};
+		4948D9612ABE03EA000C2E59 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
 		};
 /* End XCSwiftPackageProductDependency section */
 

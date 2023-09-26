@@ -7,6 +7,7 @@
 
 import UIKit
 import TransportForRickAndMorty
+import DTOObjects
 
 class FourthTypeCell: UITableViewCell {
     

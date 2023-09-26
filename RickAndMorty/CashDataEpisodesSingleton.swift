@@ -7,9 +7,18 @@
 
 import Foundation
 import TransportForRickAndMorty
+import DTOObjects
 
 class CashDataEpisodes {
     static var shared = CashDataEpisodes()
-    var cashDict = [String:RaMEpisode]()
+    private var cashDict = [String:RaMEpisode]()
     private init () {}
+    
+    func getEpisode(from url:String) -> RaMEpisode? {
+        return cashDict[url]
+    }
+    
+    func setEpisode(_ episode: RaMEpisode, with url:String) {
+        cashDict[url] = episode
+    }
 }

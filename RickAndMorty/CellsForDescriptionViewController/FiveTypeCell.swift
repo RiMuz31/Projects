@@ -7,6 +7,8 @@
 
 import UIKit
 import TransportForRickAndMorty
+import Storage
+import DTOObjects
 
 class FiveTypeCell: UITableViewCell {
     
@@ -22,8 +24,8 @@ class FiveTypeCell: UITableViewCell {
             self.episodeslabelNumber.text = nil
             self.episodeslabelData.text = nil
             
-            if CashDataEpisodes.shared.cashDict[url] == nil {
-                print(CashDataEpisodes.shared.cashDict[url])
+            if CashDataEpisodes.shared.getEpisode(from: url) == nil {
+//                print(CashDataEpisodes.shared.cashDict[url])
                 
                 let transport = TransportFactory.make()
                 transport.fetchEpisode(url) { [weak self] result in
@@ -33,14 +35,14 @@ class FiveTypeCell: UITableViewCell {
                         
                         guard let self = self else { return }
                         switch result {
-                        case .success(let chars):
+                        case .success(let episode):
                             
-                            CashDataEpisodes.shared.cashDict[url] = chars
+                            CashDataEpisodes.shared.setEpisode(episode, with: url)
                             
                             
-                            self.episodeslabelName.text = chars.name
-                            self.episodeslabelNumber.text = chars.episode
-                            self.episodeslabelData.text = chars.air_date
+                            self.episodeslabelName.text = episode.name
+                            self.episodeslabelNumber.text = episode.episode
+                            self.episodeslabelData.text = episode.air_date
                                 
                             
                         case .failure(let error):
@@ -52,9 +54,9 @@ class FiveTypeCell: UITableViewCell {
             
             }
             else {
-                self.episodeslabelName.text = CashDataEpisodes.shared.cashDict[url]?.name
-                self.episodeslabelNumber.text = CashDataEpisodes.shared.cashDict[url]?.episode
-                self.episodeslabelData.text = CashDataEpisodes.shared.cashDict[url]?.air_date
+                self.episodeslabelName.text = CashDataEpisodes.shared.getEpisode(from: url)?.name
+                self.episodeslabelNumber.text = CashDataEpisodes.shared.getEpisode(from: url)?.episode
+                self.episodeslabelData.text = CashDataEpisodes.shared.getEpisode(from: url)?.air_date
             }
         
         }
