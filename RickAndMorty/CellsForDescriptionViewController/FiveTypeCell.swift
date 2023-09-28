@@ -9,23 +9,46 @@ import UIKit
 import TransportForRickAndMorty
 import Storage
 import DTOObjects
+import CoreData
 
 class FiveTypeCell: UITableViewCell {
     
     static var identifier = "FiveTypeCell"
 //    var episode: RaMEpisode?
+//    let storage = StorageFactory.make()
     
     var urlIncell: String? {
         didSet {
-           
+            
             guard let url = urlIncell else { return }
             
             self.episodeslabelName.text = nil
             self.episodeslabelNumber.text = nil
             self.episodeslabelData.text = nil
             
-            if CashDataEpisodes.shared.getEpisode(from: url) == nil {
-//                print(CashDataEpisodes.shared.cashDict[url])
+
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest: NSFetchRequest<Episodes> = Episodes.fetchRequest()
+                    
+            do {
+
+                let tasks = try context.fetch(fetchRequest)
+                for task in tasks {
+                    if url == task.id {
+                        self.episodeslabelName.text = task.name
+                        self.episodeslabelNumber.text = task.episdode
+                        self.episodeslabelData.text = task.air_date
+                    }
+                }
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+                if StorageImpl.shared.getEpisode(from: url) == nil {
+            
+
+//            if CashDataEpisodes.shared.getEpisode(from: url) == nil {
+               
                 
                 let transport = TransportFactory.make()
                 transport.fetchEpisode(url) { [weak self] result in
@@ -37,13 +60,34 @@ class FiveTypeCell: UITableViewCell {
                         switch result {
                         case .success(let episode):
                             
-                            CashDataEpisodes.shared.setEpisode(episode, with: url)
+//                            CashDataEpisodes.shared.setEpisode(episode, with: url)
+//                            StorageImpl.shared.setEpisode(episode, with: url)
+                            
+//
+                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                let context = appDelegate.persistentContainer.viewContext
+                                guard let entity = NSEntityDescription.entity(forEntityName: "Episodes", in: context) else { return }
+                                let taskObject = Episodes(entity: entity, insertInto: context)
+                                taskObject.id = url
+                                taskObject.name = episode.name
+                                taskObject.air_date = episode.air_date
+                                taskObject.episdode = episode.episode
+
+                                do {
+                                    try context.save()
+                                } catch let error as NSError {
+                                    print(error.localizedDescription)
+                                }
+                            
+                            
+                            
+                            
                             
                             
                             self.episodeslabelName.text = episode.name
                             self.episodeslabelNumber.text = episode.episode
                             self.episodeslabelData.text = episode.air_date
-                                
+                           
                             
                         case .failure(let error):
                             print(error.localizedDescription)
@@ -54,9 +98,14 @@ class FiveTypeCell: UITableViewCell {
             
             }
             else {
-                self.episodeslabelName.text = CashDataEpisodes.shared.getEpisode(from: url)?.name
-                self.episodeslabelNumber.text = CashDataEpisodes.shared.getEpisode(from: url)?.episode
-                self.episodeslabelData.text = CashDataEpisodes.shared.getEpisode(from: url)?.air_date
+//                self.episodeslabelName.text = CashDataEpisodes.shared.getEpisode(from: url)?.name
+//                self.episodeslabelNumber.text = CashDataEpisodes.shared.getEpisode(from: url)?.episode
+//                self.episodeslabelData.text = CashDataEpisodes.shared.getEpisode(from: url)?.air_date
+                
+                
+                self.episodeslabelName.text = StorageImpl.shared.getEpisode(from: url)?.name
+                self.episodeslabelNumber.text = StorageImpl.shared.getEpisode(from: url)?.episode
+                self.episodeslabelData.text = StorageImpl.shared.getEpisode(from: url)?.air_date
             }
         
         }
@@ -131,6 +180,19 @@ class FiveTypeCell: UITableViewCell {
             episodeslabelData.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
+//    func saveTask(_ title: String) {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//        guard let entity = NSEntityDescription.entity(forEntityName: "Episodes", in: context) else { return }
+//        let taskObject = Episodes(entity: entity, insertInto: context)
+//        taskObject.id = epi
+//
+//        do {
+//            try context.save()
+//        } catch let error as NSError {
+//            print(error.localizedDescription)
+//        }
+//    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -10,6 +10,7 @@ import Foundation
 import TransportForRickAndMorty
 import PINRemoteImage
 import DTOObjects
+
 class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     enum DataSourseCases {
@@ -180,6 +181,8 @@ class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITab
 
         return array
     }
-
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 }
 
