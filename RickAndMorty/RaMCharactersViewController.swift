@@ -11,17 +11,17 @@ import DTOObjects
 
 class RaMCharactersViewController: UIViewController {
     
-    var internalArticles = [RaMCharacter]()
+    private var internalArticles = [RaMCharacter]()
     
-    var characters: RaMCharacterInfo?
+    private var characters: RaMCharacterInfo?
     
-    var numberOfPage: Int = 1
+    private var pageNumber: Int = 1
     
-    var isLoading = false
+    private var isLoading = false
     
-    let transport = TransportFactory.make()
+    private let transport = TransportFactory.make()
     
-    var footerView: RaMCharacterFooterForViewController?
+    private var footerView: RaMCharacterFooterForViewController?
     
     private let charactersLabel:UILabel = {
         let label = UILabel()
@@ -42,34 +42,25 @@ class RaMCharactersViewController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        
-        
-        transport.fetchCharacters(numberOfPage) { [weak self] result in
+        transport.fetchCharacters(pageNumber) { [weak self] result in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 switch result {
                 case .success(let chars):
                     self.characters = chars
                     self.internalArticles = chars.results
-                    self.numberOfPage += 1
+                    self.pageNumber += 1
                     self.RaMCharactersCollection.reloadData()
-                    print(self.internalArticles.count)
-                    print(self.internalArticles[0].origin.url)
-                    
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-            
         }
         configureHierarchy()
         setConstraints()
         self.hideNavigationBar()
-        
     }
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -96,20 +87,19 @@ extension RaMCharactersViewController: UICollectionViewDataSource, UICollectionV
         return self.internalArticles.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RaMCharactersCell", for: indexPath) as! RaMCharactersCell
-
-        cell.dataForCell = self.internalArticles[indexPath.row]
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RaMCharactersCell", for: indexPath) as? RaMCharactersCell else {
+            assertionFailure()
+            return UICollectionViewCell()
+        }
+        cell.data = self.internalArticles[indexPath.row]
         return cell
     }
 }
-
 extension RaMCharactersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 240)
     }
 }
-
 extension RaMCharactersViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = RaMDescriptionViewController()
@@ -118,7 +108,6 @@ extension RaMCharactersViewController {
         print(indexPath.row)
     }
 }
-
 extension RaMCharactersViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if self.isLoading {
@@ -127,10 +116,12 @@ extension RaMCharactersViewController {
             return CGSize(width: collectionView.bounds.size.width, height: 40)
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
-            let aFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RaMCharacterFooterForViewController.reuseID, for: indexPath) as! RaMCharacterFooterForViewController
+            guard let aFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RaMCharacterFooterForViewController.reuseID, for: indexPath) as? RaMCharacterFooterForViewController else {
+                assertionFailure()
+                return UICollectionReusableView()
+            }
                 footerView = aFooterView
                 footerView?.backgroundColor = .black
                 footerView?.isHidden = false
@@ -138,17 +129,6 @@ extension RaMCharactersViewController {
             }
         return UICollectionReusableView()
     }
-
-//    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-//        if elementKind == UICollectionView.elementKindSectionFooter {
-//        self.footerView?.activityIndicator.startAnimating()
-//        }
-//    }
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-//        if elementKind == UICollectionView.elementKindSectionFooter {
-//        self.footerView?.activityIndicator.stopAnimating()
-//    }
-//    }
 }
 extension RaMCharactersViewController {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -157,20 +137,17 @@ extension RaMCharactersViewController {
         }
     }
     func loadMoreData() {
-        
         self.isLoading = true
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(3)) {
-            self.transport.fetchCharacters(self.numberOfPage) { [weak self] result in
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(2)) {
+            self.transport.fetchCharacters(self.pageNumber) { [weak self] result in
                 DispatchQueue.main.async {
                     guard let self = self else { return }
                     switch result {
                     case .success(let news):
                         self.internalArticles.append(contentsOf: news.results)
-//                        self.footerView?.activityIndicator.stopAnimating()
-//                        self.footerView?.isHidden = true
                         self.RaMCharactersCollection.reloadData()
                         self.isLoading = false
-                        self.numberOfPage += 1
+                        self.pageNumber += 1
                     case .failure(let error):
                         let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))

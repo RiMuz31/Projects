@@ -12,12 +12,10 @@ import PINRemoteImage
 import DTOObjects
 
 class RaMCharactersCell: UICollectionViewCell {
-    
     private static var identifier = "RaMCharactersCell"
-    
-    var dataForCell: RaMCharacter? {
+    var data: RaMCharacter? {
         didSet {
-            guard let data = dataForCell else { return }
+            guard let data = data else { return }
             imageInCell.pin_setImage(from: URL(string: data.image))
             titleLabel.text = data.name
         }
@@ -31,8 +29,6 @@ class RaMCharactersCell: UICollectionViewCell {
         label.numberOfLines = 2
         return label
     }()
-    
-    
     private var imageInCell: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +37,6 @@ class RaMCharactersCell: UICollectionViewCell {
         image.layer.cornerRadius = 12
         return image
     }()
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         contentView.addSubview(imageInCell)
@@ -49,7 +44,7 @@ class RaMCharactersCell: UICollectionViewCell {
         contentView.backgroundColor = .init(white: 0.12, alpha: 1)
         contentView.layer.cornerRadius = 12
  
-   NSLayoutConstraint.activate([
+    NSLayoutConstraint.activate([
         imageInCell.topAnchor.constraint(equalTo: contentView.topAnchor),
         imageInCell.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0),
         imageInCell.rightAnchor.constraint(equalTo:contentView.rightAnchor,constant: -0),
@@ -59,7 +54,6 @@ class RaMCharactersCell: UICollectionViewCell {
         titleLabel.rightAnchor.constraint(equalTo:contentView.rightAnchor,constant: -0),
         titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5)
             ])
-        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -9,9 +9,9 @@ import UIKit
 import TransportForRickAndMorty
 import DTOObjects
 
-class FourthTypeCell: UITableViewCell {
+class OriginViewCell: UITableViewCell {
     
-    static var identifier = "FourthTypeCell"
+    static var identifier = "OriginViewCell"
     
     var origin: RaMCharacterOrigin?
     var urlIncell: String? {
@@ -19,21 +19,20 @@ class FourthTypeCell: UITableViewCell {
             guard let urlInCell = urlIncell else { return }
             let transport = TransportFactory.make()
             transport.fetchOrigin(urlInCell) { [weak self] result in
-                        DispatchQueue.global(qos: .userInitiated).async {
-                            guard let self = self else { return }
-                        switch result {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    guard let self = self else { return }
+                    switch result {
                         case .success(let chars):
                             self.origin = chars
                             DispatchQueue.main.async {
                                 self.originlabelInCellTwo.text = self.origin?.name
-                                
                             }
                         case .failure(let error):
                             print(error.localizedDescription)
-                        }
                     }
                 }
             }
+        }
     }
     
     var originlabelInCellOne:UILabel = {
@@ -54,7 +53,6 @@ class FourthTypeCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-   
     let originView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +102,6 @@ class FourthTypeCell: UITableViewCell {
             originlabelInCellTwo.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

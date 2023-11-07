@@ -5,9 +5,9 @@
 //  Created by Rinat Khaeritdinov on 12.09.2023.
 //
 import UIKit
-class SecondTypeCell: UITableViewCell {
+class HeaderCell: UITableViewCell {
     
-    static var identifier = "SecondTypeCell"
+    static var identifier = "HeaderCell"
     
     let originlabel:UILabel = {
         let label = UILabel()
@@ -30,7 +30,6 @@ class SecondTypeCell: UITableViewCell {
         
         contentView.addSubview(originView)
         originView.addSubview(originlabel)
-       
         contentView.backgroundColor = .black
         
         NSLayoutConstraint.activate([
@@ -46,11 +45,8 @@ class SecondTypeCell: UITableViewCell {
             originlabel.trailingAnchor.constraint(equalTo: originView.trailingAnchor, constant: 0),
             originlabel.bottomAnchor.constraint(equalTo: originView.bottomAnchor, constant: -10),
           
-            
-            
-        ])
+       ])
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

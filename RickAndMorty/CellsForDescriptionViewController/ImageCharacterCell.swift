@@ -8,15 +8,14 @@ import UIKit
 import TransportForRickAndMorty
 import PINRemoteImage
 
-class FirstTypeCell: UITableViewCell {
+class ImageCharacterCell: UITableViewCell {
     
-    static var identifier = "FirstTypeCell"
+    static var identifier = "ImageCharacterCell"
     
     var personImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 12
-//        image.backgroundColor = .white
         return image
     }()
     var nameLabel:UILabel = {
@@ -28,7 +27,6 @@ class FirstTypeCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     var statusLabel:UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
@@ -78,7 +76,6 @@ class FirstTypeCell: UITableViewCell {
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7)
         ])
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
