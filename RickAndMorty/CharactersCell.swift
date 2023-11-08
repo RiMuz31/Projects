@@ -7,13 +7,13 @@
 
 import Foundation
 import UIKit
-import TransportForRickAndMorty
+import Transport
 import PINRemoteImage
 import DTOObjects
 
-class RaMCharactersCell: UICollectionViewCell {
-    private static var identifier = "RaMCharactersCell"
-    var data: RaMCharacter? {
+class CharactersCell: UICollectionViewCell {
+    private static var identifier = "CharactersCell"
+    var data: Character? {
         didSet {
             guard let data = data else { return }
             imageInCell.pin_setImage(from: URL(string: data.image))

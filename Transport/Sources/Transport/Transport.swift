@@ -8,26 +8,28 @@ public enum TransportError: Error {
 }
 
 public protocol Transport: AnyObject {
-    func fetchCharacters(_ numberOfPages:Int, completion: @escaping (Result<RaMCharacterInfo,TransportError>) -> Void)
-    func fetchEpisode(_ episodeUrl:String, completion: @escaping (Result<RaMEpisode,TransportError>) -> Void)
-    
-    func fetchOrigin(_ urlInCell:String, completion: @escaping (Result<RaMCharacterOrigin,TransportError>) -> Void)
+    func fetchCharacters(_ page:Int,completion: @escaping (Result<CharacterInfo,TransportError>) -> Void)
+    func fetchEpisode(_ episodeUrl:String, completion: @escaping (Result<EpisodeRM,TransportError>) -> Void)
+    func fetchOrigin(_ originUrl:String, completion: @escaping (Result<CharacterOrigin,TransportError>) -> Void)
 }
 public struct TransportFactory {
    public static func make() -> Transport {
-        TransportRM()
+        TransportForRaM()
     }
 }
 private let baseURL = "https://rickandmortyapi.com/api/"
 
-private class TransportRM: Transport {
-    func fetchCharacters(_ numberOfPages:Int, completion: @escaping (Result<RaMCharacterInfo,TransportError>) -> Void) {
-        let urlString = baseURL + "character/" + "?page=" + String(numberOfPages)
+private class TransportForRaM: Transport {
+    
+    func fetchCharacters(_ page:Int, completion: @escaping (Result<CharacterInfo,TransportError>) -> Void) {
+        let urlString = baseURL + "character" + "/?page=" + String(page)
+
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
             return
         }
         let request = URLRequest(url: url)
+
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let _ = error {
                 completion(.failure(.unknown))
@@ -41,12 +43,13 @@ private class TransportRM: Transport {
                 completion(.failure(.server("status code: \(response.statusCode)")))
                 return
             }
+            
             guard let data = data else {
                 completion(.failure(.unknown))
                 return
             }
             do {
-                let parser = RaMCharacterParser()
+                let parser = CharacterParser()
                 let characters = try parser.parsJSON(data: data)
                     completion(.success(characters))
             } catch {
@@ -55,13 +58,15 @@ private class TransportRM: Transport {
         }
         task.resume()
     }
-    func fetchEpisode(_ episodeUrl:String, completion: @escaping (Result<RaMEpisode,TransportError>) -> Void) {
+    func fetchEpisode(_ episodeUrl:String, completion: @escaping (Result<EpisodeRM,TransportError>) -> Void) {
         let urlString = episodeUrl
+
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
             return
         }
         let request = URLRequest(url: url)
+
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let _ = error {
                 completion(.failure(.unknown))
@@ -75,12 +80,13 @@ private class TransportRM: Transport {
                 completion(.failure(.server("status code: \(response.statusCode)")))
                 return
             }
+            
             guard let data = data else {
                 completion(.failure(.unknown))
                 return
             }
             do {
-                let parser = RaMEpisodeParser()
+                let parser = EpisodeParser()
                 let characters = try parser.parsJSON(data: data)
                     completion(.success(characters))
             } catch {
@@ -89,13 +95,15 @@ private class TransportRM: Transport {
         }
         task.resume()
     }
-    func fetchOrigin(_ urlInCell:String, completion: @escaping (Result<RaMCharacterOrigin,TransportError>) -> Void) {
-        let urlString = urlInCell
+    func fetchOrigin(_ originUrl:String, completion: @escaping (Result<CharacterOrigin,TransportError>) -> Void) {
+        let urlString = originUrl
+
         guard let url = URL(string: urlString) else {
             completion(.failure(.unknown))
             return
         }
         let request = URLRequest(url: url)
+
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let _ = error {
                 completion(.failure(.unknown))
@@ -109,12 +117,13 @@ private class TransportRM: Transport {
                 completion(.failure(.server("status code: \(response.statusCode)")))
                 return
             }
+            
             guard let data = data else {
                 completion(.failure(.unknown))
                 return
             }
             do {
-                let parser = RaMOriginParser()
+                let parser = OriginParser()
                 let characters = try parser.parsJSON(data: data)
                     completion(.success(characters))
             } catch {

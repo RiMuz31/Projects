@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import TransportForRickAndMorty
+import Transport
 import DTOObjects
 
 class OriginViewCell: UITableViewCell {
     
     static var identifier = "OriginViewCell"
     
-    var origin: RaMCharacterOrigin?
+    var origin: CharacterOrigin?
     var urlIncell: String? {
         didSet {
             guard let urlInCell = urlIncell else { return }
@@ -35,7 +35,7 @@ class OriginViewCell: UITableViewCell {
         }
     }
     
-    var originlabelInCellOne:UILabel = {
+    var originlabelInCellOne: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
@@ -44,7 +44,7 @@ class OriginViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var originlabelInCellTwo:UILabel = {
+    var originlabelInCellTwo: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .green
@@ -70,7 +70,6 @@ class OriginViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         
         contentView.addSubview(originView)
         originView.addSubview(originImageView)

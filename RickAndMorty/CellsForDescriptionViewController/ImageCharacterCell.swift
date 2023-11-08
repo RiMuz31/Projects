@@ -5,7 +5,7 @@
 //  Created by Rinat Khaeritdinov on 06.09.2023.
 //
 import UIKit
-import TransportForRickAndMorty
+import Transport
 import PINRemoteImage
 
 class ImageCharacterCell: UITableViewCell {
@@ -18,7 +18,7 @@ class ImageCharacterCell: UITableViewCell {
         image.layer.cornerRadius = 12
         return image
     }()
-    var nameLabel:UILabel = {
+    var nameLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 28)
         label.textColor = .white
@@ -27,7 +27,7 @@ class ImageCharacterCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var statusLabel:UILabel = {
+    var statusLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
         label.textColor = .green
@@ -58,7 +58,6 @@ class ImageCharacterCell: UITableViewCell {
             firstTypeCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             firstTypeCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             firstTypeCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-            
             
             personImageView.centerXAnchor.constraint(equalTo: firstTypeCellView.centerXAnchor),
             personImageView.heightAnchor.constraint(equalToConstant: 160),

@@ -8,10 +8,10 @@
 import Foundation
 import DTOObjects
 
-class RaMCharacterParser {
-    func parsJSON(data: Data) throws -> RaMCharacterInfo {
+class CharacterParser {
+    func parsJSON(data: Data) throws -> CharacterInfo {
         let decoder = JSONDecoder()
-        let characters = try decoder.decode(RaMCharacterInfo.self, from: data)
+        let characters = try decoder.decode(CharacterInfo.self, from: data)
         return characters
     }
 }

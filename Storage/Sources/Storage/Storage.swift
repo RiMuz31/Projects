@@ -10,7 +10,7 @@ public struct ConvertRaMEpisode {
 public protocol Storage: AnyObject {
     var cashDict: [String:ConvertRaMEpisode] { get set }
     func getEpisode(from url: String)
-    func setEpisode(_ episode: RaMEpisode, with url: String)
+    func setEpisode(_ episode: EpisodeRM, with url: String)
 }
 public struct StorageFactory {
     public static var storage:Storage?
@@ -27,7 +27,7 @@ private class StorageImpl: Storage {
     public var cashDict:[String:ConvertRaMEpisode] = [:]
     public func getEpisode(from url:String) {
         }
-    public func setEpisode(_ episode: RaMEpisode, with url:String) {
+    public func setEpisode(_ episode: EpisodeRM, with url:String) {
         var convertRaMepisodeInstanse = ConvertRaMEpisode(name: "", air_date: "", episode: "")
         if let episodeName = episode.name, let episodeAir_date = episode.air_date, let episodeEpisode = episode.episode {
             convertRaMepisodeInstanse.name = episodeName
@@ -72,7 +72,7 @@ private class CoreDataStorage: Storage {
         do {
             let tasks = try context.fetch(fetchRequest)
             for item in tasks {
-                let elem = ConvertRaMEpisode(name: item.name!, air_date: item.air_date!, episode: item.episode!)
+                let elem = ConvertRaMEpisode(name: item.name ?? "", air_date: item.air_date ?? "", episode: item.episode ?? "")
                 if let item = item.id {
                 cashDict[item] = elem
                     }
@@ -81,7 +81,7 @@ private class CoreDataStorage: Storage {
             print(error.localizedDescription)
         }
     }
-    public func setEpisode(_ episode: RaMEpisode, with url: String) {
+    public func setEpisode(_ episode: EpisodeRM, with url: String) {
         let context = persistentContainer.viewContext
         guard let entity = NSEntityDescription.entity(forEntityName: "Episode", in: context) else { return }
         let taskObject = Episode(entity: entity, insertInto: context)

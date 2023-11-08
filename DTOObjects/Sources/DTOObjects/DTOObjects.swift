@@ -1,28 +1,28 @@
 import Foundation
 
-public struct RaMCharacter: Codable, Identifiable {
+public struct Character: Codable, Identifiable {
     public let id: Int
     public let name: String
     public let status: String
     public let species: String
     public let type: String
     public let gender: String
-    public let origin: RaMCharacterOrigin
-    public let location: RaMCharacterLocation
+    public let origin: CharacterOrigin
+    public let location: CharacterLocation
     public let image: String
     public let episode: [String]
     public let url: String
     public let created: String
 }
-public struct RaMCharacterInfo: Codable {
+public struct CharacterInfo: Codable {
     public let info: Info
-    public let results: [RaMCharacter]
+    public let results: [Character]
 }
-public struct RaMCharacterLocation: Codable {
+public struct CharacterLocation: Codable {
     public let name: String
     public let url: String
 }
-public struct RaMCharacterOrigin: Codable {
+public struct CharacterOrigin: Codable {
     public let name: String
     public let url: String
 }
@@ -32,7 +32,7 @@ public struct Info: Codable {
     let next: String?
     let prev: String?
 }
-public struct RaMEpisode: Codable, Identifiable {
+public struct EpisodeRM: Codable, Identifiable {
     
     func parseEpisodeString(_ episode: String) -> String {
         var array:[String] = [String]()

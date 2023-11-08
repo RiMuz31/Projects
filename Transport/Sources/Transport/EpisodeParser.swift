@@ -8,10 +8,10 @@
 import Foundation
 import DTOObjects
 
-class RaMEpisodeParser {
-    func parsJSON(data: Data) throws -> RaMEpisode {
+class EpisodeParser {
+    func parsJSON(data: Data) throws -> EpisodeRM {
         let decoder = JSONDecoder()
-        let characters = try decoder.decode(RaMEpisode.self, from: data)
+        let characters = try decoder.decode(EpisodeRM.self, from: data)
         return characters
     }
 }

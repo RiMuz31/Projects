@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RaMCharacterInfo: Codable {
+public struct CharacterInfo: Codable {
     public let info: Info
-    public let results: [RaMCharacter]
+    public let results: [Character]
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import TransportForRickAndMorty
+import Transport
 import Storage
 import DTOObjects
 import CoreData

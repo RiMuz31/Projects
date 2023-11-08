@@ -7,11 +7,11 @@
 
 import UIKit
 import Foundation
-import TransportForRickAndMorty
+import Transport
 import PINRemoteImage
 import DTOObjects
 
-class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DescriptionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     enum DataSourseCases {
         case imageCharacter (String?,String?,String?)
@@ -21,9 +21,9 @@ class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITab
         case episodesView (String)
     }
     
-    var data:RaMCharacter? = nil
+    var data: Character? = nil
     private var dataSourceAnother = [DataSourseCases]()
-    private var arrayOfEpisodes:[String?] = []
+    private var arrayOfEpisodes: [String?] = []
     private var arrayWithEpisodes: [String] = []
     private let episodesTableView: UITableView = {
         let tableView = UITableView()
@@ -41,7 +41,7 @@ class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITab
         return tableView
         
     }()
-    private let originlabel:UILabel = {
+    private let originlabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
@@ -50,7 +50,7 @@ class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITab
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private let episodeslabel:UILabel = {
+    private let episodeslabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
@@ -155,7 +155,7 @@ class RaMDescriptionViewController: UIViewController, UITableViewDelegate, UITab
             cell.url = url
             cellForTableView = cell
         }
-        return cellForTableView!
+        return cellForTableView ?? UITableViewCell()
     }
     @objc private func actionRightSwipeGesture() {
         navigationController?.popToRootViewController(animated: true)

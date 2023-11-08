@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RaMLocation: Codable {
+public struct Location: Codable {
     
     public let id: Int
     public let name: String

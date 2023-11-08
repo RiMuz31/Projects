@@ -17,7 +17,7 @@ class InfoViewCell: UITableViewCell {
         view.backgroundColor = .init(white: 0.12, alpha: 1)
         return view
     }()
-    let infoViewLabelOne:UILabel = {
+    let infoViewLabelOne: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .init(white: 0.70, alpha: 1)
@@ -26,7 +26,7 @@ class InfoViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let infoViewLabelTwo:UILabel = {
+    let infoViewLabelTwo: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .init(white: 0.70, alpha: 1)
@@ -35,7 +35,7 @@ class InfoViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let infoViewLabelThree:UILabel = {
+    let infoViewLabelThree: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .init(white: 0.70, alpha: 1)
@@ -44,7 +44,7 @@ class InfoViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var infoViewLabelFour:UILabel = {
+    var infoViewLabelFour: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .white
@@ -53,7 +53,7 @@ class InfoViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var infoViewLabelFive:UILabel = {
+    var infoViewLabelFive: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .white
@@ -62,7 +62,7 @@ class InfoViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var infoViewLabelSix:UILabel = {
+    var infoViewLabelSix: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
         label.textColor = .white

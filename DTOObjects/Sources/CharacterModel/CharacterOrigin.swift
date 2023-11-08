@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RaMCharacterLocation: Codable {
+public struct CharacterOrigin: Codable {
     public let name: String
     public let url: String
 }

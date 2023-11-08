@@ -7,8 +7,8 @@
 
 import UIKit
 
-class RaMCharacterFooterForViewController: UICollectionReusableView {
-    static let reuseID: String = "footerforViewController"
+class CharacterFooterForViewController: UICollectionReusableView {
+    static let reuseID: String = "FooterforViewController"
     private var activityIndicator: UIActivityIndicatorView = {
         let ai = UIActivityIndicatorView()
         ai.color = .yellow

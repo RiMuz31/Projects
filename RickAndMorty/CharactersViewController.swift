@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import TransportForRickAndMorty
+import Transport
 import DTOObjects
 
-class RaMCharactersViewController: UIViewController {
+class CharactersViewController: UIViewController {
     
-    private var internalArticles = [RaMCharacter]()
+    private var internalArticles = [Character]()
     
-    private var characters: RaMCharacterInfo?
+    private var characters: CharacterInfo?
     
     private var pageNumber: Int = 1
     
@@ -21,7 +21,7 @@ class RaMCharactersViewController: UIViewController {
     
     private let transport = TransportFactory.make()
     
-    private var footerView: RaMCharacterFooterForViewController?
+    private var footerView: CharacterFooterForViewController?
     
     private let charactersLabel:UILabel = {
         let label = UILabel()
@@ -31,10 +31,10 @@ class RaMCharactersViewController: UIViewController {
         label.text = "Characters"
         return label
     }()
-    private let RaMCharactersCollection: UICollectionView = {
+    private let CharactersCollection: UICollectionView = {
         let collection:UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collection.register(RaMCharactersCell.self, forCellWithReuseIdentifier: "RaMCharactersCell")
-        collection.register(RaMCharacterFooterForViewController.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RaMCharacterFooterForViewController.reuseID)
+        collection.register(CharactersCell.self, forCellWithReuseIdentifier: "CharactersCell")
+        collection.register(CharacterFooterForViewController.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CharacterFooterForViewController.reuseID)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .black
         collection.showsVerticalScrollIndicator = false
@@ -50,7 +50,7 @@ class RaMCharactersViewController: UIViewController {
                     self.characters = chars
                     self.internalArticles = chars.results
                     self.pageNumber += 1
-                    self.RaMCharactersCollection.reloadData()
+                    self.CharactersCollection.reloadData()
                 case .failure(let error):
                     let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
@@ -64,30 +64,31 @@ class RaMCharactersViewController: UIViewController {
     }
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            RaMCharactersCollection.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            RaMCharactersCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            RaMCharactersCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            RaMCharactersCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            CharactersCollection.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            CharactersCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            CharactersCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            CharactersCollection.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            
             charactersLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             charactersLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             charactersLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            charactersLabel.bottomAnchor.constraint(equalTo: RaMCharactersCollection.topAnchor, constant: -20)
+            charactersLabel.bottomAnchor.constraint(equalTo: CharactersCollection.topAnchor, constant: -20)
         ])
     }
     private func configureHierarchy() {
-        view.addSubview(RaMCharactersCollection)
+        view.addSubview(CharactersCollection)
         view.addSubview(charactersLabel)
-        RaMCharactersCollection.delegate = self
-        RaMCharactersCollection.dataSource = self
+        CharactersCollection.delegate = self
+        CharactersCollection.dataSource = self
     }
 }
 
-extension RaMCharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CharactersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.internalArticles.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RaMCharactersCell", for: indexPath) as? RaMCharactersCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharactersCell", for: indexPath) as? CharactersCell else {
             assertionFailure()
             return UICollectionViewCell()
         }
@@ -95,20 +96,20 @@ extension RaMCharactersViewController: UICollectionViewDataSource, UICollectionV
         return cell
     }
 }
-extension RaMCharactersViewController: UICollectionViewDelegateFlowLayout {
+extension CharactersViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 240)
     }
 }
-extension RaMCharactersViewController {
+extension CharactersViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = RaMDescriptionViewController()
+        let vc = DescriptionViewController()
         vc.data = internalArticles[indexPath.row]
         navigationController?.pushViewController(vc,animated: true)
         print(indexPath.row)
     }
 }
-extension RaMCharactersViewController {
+extension CharactersViewController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if self.isLoading {
             return CGSize.zero
@@ -118,7 +119,7 @@ extension RaMCharactersViewController {
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
-            guard let aFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RaMCharacterFooterForViewController.reuseID, for: indexPath) as? RaMCharacterFooterForViewController else {
+            guard let aFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CharacterFooterForViewController.reuseID, for: indexPath) as? CharacterFooterForViewController else {
                 assertionFailure()
                 return UICollectionReusableView()
             }
@@ -130,7 +131,7 @@ extension RaMCharactersViewController {
         return UICollectionReusableView()
     }
 }
-extension RaMCharactersViewController {
+extension CharactersViewController {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == internalArticles.count - 2, !self.isLoading {
             loadMoreData()
@@ -145,7 +146,7 @@ extension RaMCharactersViewController {
                     switch result {
                     case .success(let news):
                         self.internalArticles.append(contentsOf: news.results)
-                        self.RaMCharactersCollection.reloadData()
+                        self.CharactersCollection.reloadData()
                         self.isLoading = false
                         self.pageNumber += 1
                     case .failure(let error):

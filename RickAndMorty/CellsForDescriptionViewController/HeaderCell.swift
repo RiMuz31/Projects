@@ -9,7 +9,7 @@ class HeaderCell: UITableViewCell {
     
     static var identifier = "HeaderCell"
     
-    let originlabel:UILabel = {
+    let originlabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
         label.textColor = .white
